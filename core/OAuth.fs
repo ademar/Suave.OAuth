@@ -130,7 +130,7 @@ module private impl =
                     if Option.isNone access_token then
                         raise (OAuthException "failed to extract access token")
 
-                    let uri = config.request_info_uri + "?" + (["access_token", Option.get access_token] |> util.formEncode)
+                    let uri = config.request_info_uri + "?" + (["access_token", Option.get access_token; "fields", "id,name,email"] |> util.formEncode)
                     let! response = HttpCli.get uri config.customize_req
                     response |> printfn "/user response %A"        // TODO log
 
